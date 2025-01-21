@@ -83,5 +83,5 @@ def preprocesar_dataSet(df):
     nulos.to_csv('sinClasificacion.csv')
     df.to_csv("preprocesado.csv")
 
-
+print(df.columns)
 preprocesar_dataSet(df)

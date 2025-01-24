@@ -23,14 +23,14 @@ def prepare_data(df, target_column, feature_columns):
     return X, y
 
 # Entrenamiento y evaluación del modelo
-def train_decision_tree(X, y, max_depth=5, random_state=42):
+def train_decision_tree(X, y, max_depth=5,criterion='gini', random_state=42):
     # Dividir datos en entrenamiento y prueba
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=random_state
     )
     
     # Crear y entrenar el modelo
-    dt = DecisionTreeClassifier(max_depth=max_depth, random_state=random_state)
+    dt = DecisionTreeClassifier(max_depth=max_depth, random_state=random_state, criterion= criterion)
     dt.fit(X_train, y_train)
     
     # Hacer predicciones
@@ -43,7 +43,7 @@ def train_decision_tree(X, y, max_depth=5, random_state=42):
     return dt, X_train, X_test, y_test, y_pred, accuracy, report
 
 # Entrenamiento y evaluación del modelo
-def train_random_forest(X, y, n_estimators=100, max_depth=None, random_state=42):
+def train_random_forest(X, y, n_estimators=100, max_depth=None, criterion= 'gini',random_state=42):
     # Dividir datos en entrenamiento y prueba
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=random_state
@@ -53,7 +53,9 @@ def train_random_forest(X, y, n_estimators=100, max_depth=None, random_state=42)
     rf = RandomForestClassifier(
         n_estimators=n_estimators,
         max_depth=max_depth,
-        random_state=random_state
+        random_state=random_state,
+        criterion=criterion,
+        bootstrap= True
     )
     rf.fit(X_train, y_train)
     
@@ -87,14 +89,3 @@ df = pd.read_csv('preprocesado.csv')
 # Preparar datos
 X, y = prepare_data(df,target_column,feature_columns)
 
-# Entrenamiento y reporte del modelo
-dt, X_train, X_test, y_test, y_pred, accuracy, report = train_random_forest(X, y)
-#dt, X_train, X_test, y_test, y_pred, accuracy, report = train_decision_tree(X, y)
-
-# Imprimir resultados
-print(f'Accuracy: {accuracy}')
-print('\nClassification Report:')
-print(report)
-
-# Visualizar árbol
-#plot_decision_tree(dt, feature_names=feature_columns)

@@ -9,13 +9,20 @@ def valores_unicos_df(dataframe, columna):
     if columna not in dataframe.columns:
         print(f"La columna '{columna}' no existe en el DataFrame.")
         return
+    
     # Obtener valores únicos sin nulos
     valores_unicos = dataframe[columna].dropna().unique()
-    conteos = df[columna].value_counts(dropna=False)
+    
+    # Generar los conteos de valores, incluyendo NaN si corresponde
+    conteos = dataframe[columna].value_counts(dropna=False)
+    
+    # Mostrar valores únicos y sus conteos
     print(f"Valores únicos en la columna '{columna}':")
     for valor in valores_unicos:
-        print(f"{valor} / {conteos[valor]}")
-
+        if valor in conteos:
+            print(f"{valor} / {conteos[valor]}")
+        else:
+            print(f"{valor} no encontrado en los conteos.")
 
 def preprocesar_dataSet(df):
     del df["ID Caso Relacionado"]
@@ -82,6 +89,6 @@ def preprocesar_dataSet(df):
     # Guardar dataSets
     nulos.to_csv('sinClasificacion.csv')
     df.to_csv("preprocesado.csv")
+    valores_unicos_df(df,"Descripción Presunto Responsable")
 
-print(df.columns)
 preprocesar_dataSet(df)

@@ -38,8 +38,13 @@ def max_depth_analysis(criterion:str, n_estimators:int):
     plt.show()
 
 
-max_depth_analysis('gini', 100)
-max_depth_analysis('entropy', 100)
+dt, X_train, X_test, y_test, y_pred, accuracy, report = train_random_forest(X, y,criterion='gini',n_estimators=25, max_depth=8, random_state=120)
+
+print(accuracy)
+print(report)
+
+#max_depth_analysis('gini', 100)
+#max_depth_analysis('entropy', 100)
 
 """
 # prueba 1 

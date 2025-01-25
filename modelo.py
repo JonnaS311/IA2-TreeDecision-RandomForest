@@ -19,6 +19,8 @@ def prepare_data(df, target_column, feature_columns):
     y = df[target_column]
     if y.dtype == 'object':
         y = le.fit_transform(y.astype(str))
+        for i in le.classes_:
+            print(i)
     
     return X, y
 
@@ -88,4 +90,3 @@ df = pd.read_csv('preprocesado.csv')
 
 # Preparar datos
 X, y = prepare_data(df,target_column,feature_columns)
-

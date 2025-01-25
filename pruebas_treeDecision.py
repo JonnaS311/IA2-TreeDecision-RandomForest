@@ -37,6 +37,9 @@ def max_depth_analysis(criterion:str):
     # Mostrar el gráfico
     plt.show()
 
+dt, X_train, X_test, y_test, y_pred, accuracy, report = train_decision_tree(X, y,criterion='entropy', max_depth=6, random_state=120)
+print(accuracy)
+print(report)
 
 max_depth_analysis('gini')
 max_depth_analysis('entropy')

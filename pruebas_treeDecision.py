@@ -1,4 +1,4 @@
-from modelo import train_decision_tree, X, y
+from modelo import train_decision_tree, X, y, plot_decision_tree, feature_columns
 import numpy as np
 import matplotlib.pyplot as plt
 import random
@@ -41,5 +41,7 @@ dt, X_train, X_test, y_test, y_pred, accuracy, report = train_decision_tree(X, y
 print(accuracy)
 print(report)
 
-max_depth_analysis('gini')
-max_depth_analysis('entropy')
+#max_depth_analysis('gini')
+#max_depth_analysis('entropy')
+
+plot_decision_tree(dt, feature_names=feature_columns)
